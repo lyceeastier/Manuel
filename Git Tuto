@@ -1,0 +1,275 @@
+///////////////////////////////////////////////////////////////
+////// Manuel Gonzalez Commandes Git //////////////////////////
+///////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////
+1] IDENTIFICATION./////////////////////////////
+///////////////////////////////////////////////
+-ouvrir  Git CMD///////////////////////////////
+///////////////////////////////////////////////
+git config --global user.name "VotreUserName"//
+git config --global user.email 'VotreEmail/////
+git config -l//////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+2] Creer un dosier/////////////////////////////
+///////////////////////////////////////////////
+// creer un dossier////////////////////////////
+///////////////////////////////////////////////
+ - mkdir NomDuProjet///////////////////////////
+ //////////////////////////////////////////////
+ //Rentre dans le dossier//////////////////////
+ //////////////////////////////////////////////
+ - cd NomDuProjet//////////////////////////////
+ //////////////////////////////////////////////
+ ///// Commencer le versionnage du projet /////
+ //////////////////////////////////////////////
+ - git init////////////////////////////////////
+ /////////////////////////////////////////////
+ ///// Informations sur le projet ////////////
+ /////////////////////////////////////////////
+ - git status
+ si le dossier est vide le message est le suivant:
+ nothing to commit(creat/copy files and use "git add" to track)
+ 
+ si un fichier est présent il sera de couleur rouge,
+ il n'est pas près à commit.
+ /////////////////////////////////////////////
+ /////////////////////////////////////////////
+3] Le COMMIT
+///////////////////////////////////////////////
+Le commit est comme un snapshot.
+Il enregistre l'état actuel de votre projet/fichier.
+Il faut pointer le fichier que nous voulons.
+
+Pour cela faire:
+- git status // afin de voir les fichier présent dans le dosier/////////////////////////////
+- git add NomDuFichier // pour exemple je prend un fichier index.html
+
+exemple:
+- git add index.html
+si vous refaite un git status, vous pourrez voir la mention : 
+new file: index.html en vert.
+Le fichier est maitenant près.
+
+
+Dans cet exemple je n'est fait un ADD que sur 1 fichier. 
+Mais nous pouvons faire des ADD sur N fichiers présent dans le dossier.
+
+La commande
+- git commit
+prend donc un snapshot de tout les fichier qui ont étaient ADD avant.
+
+Mais attention à ne pas l'utiliser telquel.
+
+- git commit --message "Dire pourquoi vous avez pris ce snapshot?"
+
+Un snapshot doit ce faire suite à une modification, ou une creation, une correction
+Numéroter différents version du projet ...
+Ce commentaire permettra de retracer qui a fait quoi tel jour et pourquoi.
+
+vous pouvez faire un 
+- git status
+suite à votre commit
+afin d'étre sur que git possède la dernière version de vos fichiers.
+Vous devrez voir apparaitre:
+
+On branch master
+nothing to commit, working directory clean
+
+C'est un cas ou par exemple en entreprise, après avoir codé toute la journée
+j'upload mes modifications grace au commit
+et je rentre chez moi.
+
+4] Modification du fichier que vous avez déja commit:
+Dans l'exemple je reviens le lendemain et je re édite mon fichier index.html
+si je fait un git status
+git m'indiquera que j'ai un fichier index.html qui à été modifier et qui n'est pas près a commit
+Ce qui est normal puisque je n'est pas fait de git add et de git commit suite à la modification
+
+Il est possible de voir la différence entre le dernier commit et le fichier modifier grace à la commande:
+git diff
+
+dans mon exemple 
+j'avais une balise 
+<h1> HI </h1>
+après modification j'ai maintenant
+<h1>HI c'est manu</h1>
+
+si je fait donc un git diff
+
+git m'informe en rouge de l'ancienne état
+et en vert la modification
+
+je fait donc un nouveau
+git add index.html
+puis git commit --message "modification sur la balise H1"
+
+
+je peut visualiser les différents commit grâce à 
+git log
+
+
+j'ai les informations que la date, l'heure et qui a réaliser les différents commit 
+ainsi que la description sur le commit qui est réaliser grace au --message ""
+--------------------------------------------------------------
+TOUTES CES COMMANDES PEUVENT ETRE FAIRE EN MODE OFFLINE
+--------------------------------------------------------------
+
+
+
+
+
+
+
+----------------Notions de branche-------------------
+
+Imaginons que dans une entreprise un site web soit déja fonctionnel.
+Nous avons aucune envie que les fichiers soient polluer par des moficiations
+nous pouvons donc creer une branche, un clone du site web
+Nous pourrons donc travailer sur ce clone sans impacter le site réel
+
+pour ce faire il faut effectuer la commande suivante:
+
+git branch NomDeLaBranche
+
+pour l'exemple de mon fichier index.html
+
+je veut changer le background de ma page 
+
+je creer donc une branch green-background via la commande
+
+git branch green-background
+
+suite à cela nous pouvons visualiser les différents branches
+
+git branch
+
+il y a de base la branch master qui est la source du projet
+
+et donc dans mon exemple la branch green-background que je viens de creer
+
+par défault nous somme positionné sur la branche master
+
+pour changer de branch
+
+git checkout green-background
+
+nous somme maitenant sur la branch green-background
+
+je peut donc maitenant éditer mon fichier
+
+suite à ça un git status m'informe que j'ai bien eu un changement sur le ficher index.html
+
+et un git diff me montre les mofications
+
+
+je peut donc refaire une snapshot
+
+git add index.html
+
+git commit --message "Modif background en green-background"
+
+un autre git status m'informe que mon git repository est clean
+
+
+Si je repasse sur la branch master 
+
+git checkout master
+
+et que je relance mon fichier index.php
+le site n'a subit aucune modifications
+
+deux version en parrallèle du site
+
+.
+------------------
+Si master change 
+------------------
+
+il faut donc rapatrier les modification de la branche que nous avons creer dans la branche master
+
+il faut allez sur master
+git checkout master
+
+puis voir les diff des branch
+
+git diff master..green-background
+
+il faut donc faire un merge pour ajouter la branch green-background à la branch master
+
+git merge green-background
+
+si 2 personne sur deux branche différents font une même modification sur la même ligne
+
+exemple sur la branch master je change Hello en HI
+et dans la branch bonjour je change hello en bonjour
+lors du merge
+
+git merge bonjour
+
+git m'informe que un Conflict à lieux.
+
+si j'édite mon fichier index.html je peut voir que mes balise H1 ont changé:
+
+
+<<<<<<< HEAD
+	<h1>Hi</h1>
+=======
+	<h1>Bonjour</h1>
+>>>>>>> bonjour
+
+Dans dessous du  Head ce trouve la modification de master
+et en dessus de bonjour ce trouve la modification de la branch bonjour
+
+cette erreur est humaine
+
+c'est donc à nous d'éditer et de choisir ce que nous voulons garder
+le hi ou le bonjour
+
+je garde ici le bonjour
+
+
+j'efface donc le <h1>Hi</h1>
+
+j'effectue un git status
+
+git m'indique que le merge n'a pas réussit le merge creant un commit
+je doit donc faire un commit manuellement avec un  git add puis une git commit -m "Conflit résolut"
+
+
+
+--------------- Supprimer une branch ---------------------------------------------------------------
+
+Une fois que les modifications sont fini, les branch annexes ayant été merge au master
+les branch n'ont plus aucune utilité
+il faut donc les supprimer
+
+git branch -d NomDeLaBranche
+
+pour moi j'ai deux branch donc
+
+git branch -d green-background
+git branch -d bonjour
+
+si par exemple vous avez effectuer des commit donc des moficiation sur une branch que vous voulez supprimer
+
+git vous informe que la branch ne peut etre supprimer.
+
+si vous êtes vraiement sur que cette branch ne sert à rien
+
+git branch -D green-background 
+
+gitk permet de visualiser l'arborescence de notre repository
+
+
+http://www.wei-wang.com/ExplainGitWithD3/
+
+
+
+
+
+
+git remote add origin https://github.com/lyceeastier/Manuel.git
+git push -u origin JoinBdd
