@@ -1,0 +1,203 @@
+#footer1{	
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	height: 20px;
+	color:#CCC;
+	background:#333;
+	padding:8px;
+}
+
+
+#texte{
+	/*color:red;*/
+}
+
+
+#svgMap{
+	/*position:relative;*/
+	/*top:100px;*/
+	
+	
+}
+
+#body{
+		
+		background-image:url(images/mmd.png);
+		
+}
+#bodytab{
+		
+		background-color:gray;
+		
+}
+.footer{
+	/*
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	height: 20px;
+	color:#CCC;
+	background:#333;
+	padding:8px;
+	
+	
+	fill:#383F3E;
+	position:fixed;
+	bottom: 0px;
+	*/
+}
+
+#central{
+	
+	fill:			#fff;
+	stroke:			#000;
+	stroke-width:	1.5;
+	
+}
+
+#button{
+	
+	fill:           	#red;
+	stroke:   			#0C2C84;
+	stroke-miterlimit:	6;
+	stroke-linecap:		round;
+	
+}
+#button:hover{
+	stroke-width:   	2;
+}
+#plus-minus{
+	
+	fill:	red;
+	pointer-events: none;
+	
+}
+
+#widgets{	
+	
+	position:fixed;
+	top:0px;
+	left:0px;
+	
+	width:100%;
+	height: 90%;
+	
+	
+	padding:8px;
+
+}
+
+#map-matrix{
+	position: center;
+	
+}
+
+#svgFooter{
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	height: 20px;
+	color:#CCC;
+	background:#333;
+	padding:8px;
+}
+a{
+	color:grey;
+}
+a:hover{
+	color: blue;
+}
+table
+{
+    border-collapse: collapse; /* Les bordures du tableau seront collées (plus joli) */
+}
+
+td, th /* Toutes les cellules des tableaux... */
+{
+    border: 1px solid black; /* auront une bordure de 1px */
+}
+.logoBdd{
+	
+			float: right;
+	
+			margin-right: 20px;
+
+}
+	
+.logoBdd li{
+	list-style:none;
+	float:left;
+	width:20px;
+	height:20px;
+	background-position: 20px 0px;
+	background-size: 40px 20px;
+	cursor:pointer;
+}
+		
+
+.logoBdd li.bdd{	
+	background-image: url('./images/bdd.png');
+	
+}
+
+.logoBdd li.bdd:hover{	
+	background-position: 0px 0px;
+}
+
+.logoBdd li.bdd.active{	
+	background-position: 0px 0px;
+}
+.logoBdd li.bdd.passive{	
+	background-position: 20px 0px;
+}
+.footer1.passive{
+	
+	visibility:  hidden;
+}
+.footer2.active{
+	
+	bottom:10px;
+	height: 30px;
+	
+	
+	padding:8px;
+	background-image: url('./images/flecheBB.png');
+	
+	position: fixed;
+	width: 50px;
+	left: 50%; 
+	margin-left: -100px;
+}
+
+.footer2:hover{
+	{
+		bottom:0px;
+	}
+	
+	
+.draggable{
+	cursor: move;
+	width: 100px;
+}
+.header2.passive{
+	
+	visibility:  hidden;
+}
+.header2.active{
+	
+	
+	height: 30px;
+	
+	
+	padding:8px;
+	background-image: url('./images/flecheBB.png');
+	
+	position: fixed;
+	width: 50px;
+	left: 50%; 
+	margin-left: -100px;
+}

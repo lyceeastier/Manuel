@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="monStyle.css">
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="script.svg.js"></script>
+<script src="jquery.manu.js"></script>
+<script src="Ajax.js"></script>
+<!-- appeller monScriptJQuery   -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>jQuery SVG Basics</title>
+<script type="text/ecmascript">
+   
+</script>
+
+</head>	
+
+<body id="body">
+<div class="header2">
+</div>
+<div id="footer1" class="footer1">
+
+	<div id="texte" >
+		<center>
+		<a href="https://github.com/lyceeastier "target="_blank" >Projet Gestion  Flotte Autobus </a>| <a href="http://www.btssnir.fr/" target="_blank"> Lyçée Astier, Aubenas 2016</a> | <a href="https://fr.linkedin.com/in/manuel-gonzalez-a48b03115" target="_blank" > © Manuel Gonzalez.</a>
+		<div class = "logoBdd">
+			<li class="bdd" id="bdd" title="Base De Données" onclick="infosBdd();" ></li>	
+		</div>		
+		</center>
+	</div>
+		
+</div>
+
+
+<div class="footer2">
+</div>
+		
+<!-- HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH -->	
+
+<svg id="svgMap"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    width="1900"
+    height="2525"
+	x="0"
+	y="0"
+	
+    onload="init(evt)">
+   
+  
+  <script type="text/ecmascript">
+    <![CDATA[
+		var transMatrix = [1,0,0,1,0,0];
+        
+        function init(evt)
+        {
+            if ( window.svgDocument == null )
+            {
+                svgDoc = evt.target.ownerDocument;
+
+            }
+            mapMatrix = svgDoc.getElementById("map-matrix");
+            width  = evt.target.getAttributeNS(null, "width");
+            height = evt.target.getAttributeNS(null, "height");
+			tooltip = svgDocument.getElementById('tooltip');
+
+        }
+        
+    ]]>
+  </script>
+<g transform="scale(0.788) translate(0,0)">
+
+    <g id="map-matrix" transform="matrix(1 0 0 1 0 0)">
+	    
+		<image xlink:href="images/ValenceBonneDef.png" x="-10" y="0" width="2421" height="3194" />
+		
+		<polyline id="myTraj" points=""  style="stroke:red; stroke-width: 5; fill: none;" />
+		<image id="myLogoBus" xlink:href="images/bus.svg" />
+	</g>
+	
+</g>
+		
+  </svg>
+ <!-- HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH -->	 
+  <svg id="widgets"
+  
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    width="100%"
+    height="100%"
+	x="0"
+	y="0"
+	
+    onload="initWidgets(evt)">
+   
+  <script type="text/ecmascript">
+  
+ 
+
+    <![CDATA[
+		var selectedElement = 0;
+		var currentX = 0;
+		var currentY = 0;
+		var currentMatrix = 0;
+		var transMatrix = [1,0,0,1,0,0];
+        
+        function initWidgets(evt)
+        {
+            if ( window.svgDocument == null )
+            {
+                svgDoc = evt.target.ownerDocument;
+
+            }
+            mapMatrix = svgDoc.getElementById("map-matrix");
+            width  = evt.target.getAttributeNS(null, "width");
+            height = evt.target.getAttributeNS(null, "height");
+        }
+        
+		  function selectElement(evt) 
+			{
+			  selectedElement = evt.target;
+			  currentX = evt.clientX;
+			  currentY = evt.clientY;
+			  currentMatrix = selectedElement.getAttributeNS(null, "transform").slice(7,-1).split(' ');
+		
+			  for(var i=0; i<currentMatrix.length; i++) {
+				currentMatrix[i] = parseFloat(currentMatrix[i]);
+			}
+      
+			  selectedElement.setAttributeNS(null, "onmousemove", "moveElement(evt)");
+			  selectedElement.setAttributeNS(null, "onmouseout", "deselectElement(evt)");
+			  selectedElement.setAttributeNS(null, "onmouseup", "deselectElement(evt)");
+			}
+        
+    function moveElement(evt) 
+		{
+		  var dx = evt.clientX - currentX;
+		  var dy = evt.clientY - currentY;
+		  currentMatrix[4] += dx;
+		  currentMatrix[5] += dy;
+		  
+		  selectedElement.setAttributeNS(null, "transform", "matrix(" + currentMatrix.join(' ') + ")");
+		  currentX = evt.clientX;
+		  currentY = evt.clientY;
+		}
+        
+    function deselectElement(evt) 
+		{
+      if(selectedElement != 0){
+          selectedElement.removeAttributeNS(null, "onmousemove");
+          selectedElement.removeAttributeNS(null, "onmouseout");
+          selectedElement.removeAttributeNS(null, "onmouseup");
+          selectedElement = 0;
+          }
+        }
+
+        
+    ]]>
+  </script>
+   <style>
+        .draggable {
+            cursor: move;
+        }
+    </style>
+	
+   <rect  class="logoBoule" width="2533" height="100"   rx="20" ry="20" 
+   style="fill:blue;stroke:black;stroke-width:5;opacity:0.5" transform="matrix(1 0 0 1 0 0)" onmousedown="selectElement(evt)" onmousemove="deselectElement(evt)"/>
+   
+   <image id="logo" class="logoBoule" xlink:href="images/globe.gif" x="-1000" y="0" width="200" height="100" onresize="reagirLoadPage"/>
+	
+    
+
+	 <g >
+	  <circle cx="50" cy="50" r="42" fill="white" opacity="0.75" x="100" y= "100" />
+	  <!-- Haut -->
+	  <path id="button" class="btn" onclick="top.pan( 0, 50, 'haut')" d="M50 10 l12   20 a40, 70 0 0,0 -24,  0z" />
+	  <!-- Gauche -->
+	  <path id="button" class="btn" onclick="top.pan( 50, 0, 'gauche')" d="M10 50 l20  -12 a70, 40 0 0,0   0, 24z" />
+	  <!-- Bas -->
+	  <path id="button" class="btn" onclick="top.pan( 0,-50, 'bas')" d="M50 90 l12  -20 a40, 70 0 0,1 -24,  0z" />
+	  <!-- Droite -->
+	  <path id="button" class="btn" onclick="top.pan(-50, 0, 'droite')" d="M90 50 l-20 -12 a70, 40 0 0,1   0, 24z" />
+	  
+	  <circle id="central" class="btn"  cx="50" cy="50" r="20"/>
+	  <circle id="button" class="btn" cx="50" cy="41" r="8" onclick="top.zoom(0.8)"/>
+	  <circle id="button" class="btn" cx="50" cy="59" r="8" onclick="top.zoom(1.25)"/>
+
+	  <rect id="plus-minus" class="btn" x="46" y="39.5" width="8" height="3"/>
+	  <rect id="plus-minus" class="btn" x="46" y="57.5" width="8" height="3"/>
+	  <rect id="plus-minus" class="btn" x="48.5" y="55" width="3" height="8"/>
+  </g>
+
+</svg>
+
+
+
+
+  <!-- HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH -->	
+	
+</body>
+</html>
